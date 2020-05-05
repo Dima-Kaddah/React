@@ -11,9 +11,9 @@ const WeatherCard = ({ cityInfo, cityDelete, thereEroror }) => {
         <div className="card">
           <h2>{city.name}</h2>
           {city.main.temp ? (
-            <h2 className="temp">{Celsius(city.main.temp)}&deg;</h2>
+            <h2 className="temp">{celsius(city.main.temp)}&deg;</h2>
           ) : null}
-          {minmaxTemp(Celsius(city.main.temp_min), Celsius(city.main.temp_max))}
+          {minmaxTemp(celsius(city.main.temp_min), celsius(city.main.temp_max))}
           {discrMain(city.weather[0].main, city.weather[0].description)}
           {location(city.coord.lon, city.coord.lat)}
         </div>
@@ -54,7 +54,7 @@ function location(lon, lat) {
   }
 }
 
-function Celsius(temp) {
+function celsius(temp) {
   let cels = Math.floor(temp - 273.15);
   return cels;
 }
