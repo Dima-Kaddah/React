@@ -1,8 +1,7 @@
 import React from 'react';
 
 //use props
-const Hobbies = props => {
-  const { hobby } = props;
+const Hobbies = ({ hobby }) => {
   return <li>{hobby}</li>;
 };
 

@@ -7,7 +7,7 @@ class Counter extends Component {
   }
 
   setCount = () => {
-    this.setState({ Count: this.state.Count + 1 });
+    this.setState({ ...this.state, Count: this.state.Count + 1 });
   };
   resetCount = () => {
     this.setState({ Count: 0 });
