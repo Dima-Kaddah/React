@@ -13,20 +13,20 @@ export default function Friend() {
   const [hasError, setError] = useState(false);
   const [getFriend, setGetFriend] = useState(false);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setLoading(true);
-        const response = await fetch('https://www.randomuser.me/api?results=1');
-        const data = await response.json();
-        const [item] = data.results;
-        setFriend(item);
-        setLoading(false);
-      } catch (err) {
-        setError(true);
-        setLoading(false);
-      }
+  async function fetchData() {
+    try {
+      setLoading(true);
+      const response = await fetch('https://www.randomuser.me/api?results=1');
+      const data = await response.json();
+      const [item] = data.results;
+      setFriend(item);
+      setLoading(false);
+    } catch (err) {
+      setError(true);
+      setLoading(false);
     }
+  }
+  useEffect(() => {
     fetchData();
   }, [getFriend]);
 
@@ -40,17 +40,7 @@ export default function Friend() {
       />
       {hasError && <p>Something went wrong</p>}
       {isLoading && <p>Loading ....</p>}
-      {friend && !hasError && (
-        <FriendProfile
-          firstName={friend.name.first}
-          lastName={friend.name.last}
-          street={friend.location.street.name}
-          postcode={friend.location.postcode}
-          city={friend.location.city}
-          email={friend.email}
-          phone={friend.phone}
-        />
-      )}
+      {friend && !hasError && <FriendProfile {...friend} />}
     </div>
   );
 }
