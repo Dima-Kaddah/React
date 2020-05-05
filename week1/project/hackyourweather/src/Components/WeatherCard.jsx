@@ -1,15 +1,15 @@
 import React from 'react';
 
-const Weather = (props) => {
+const WeatherCard = (props) => {
   return (
-    <div className="card">
+    <div className="card" key={props.id}>
       <h2>
-        {props.city},{props.country}
+        {props.name},{props.sys.country}
       </h2>
-      <h2 className="temp"> {Celsius(props.temp)}&deg;</h2>
-      {minmaxTemp(Celsius(props.temp_min), Celsius(props.temp_max))}
-      {discrMain(props.main, props.discription)}
-      {location(props.lon, props.lat)}
+      <h2 className="temp"> {Celsius(props.main.temp)}&deg;</h2>
+      {minmaxTemp(Celsius(props.main.temp_min), Celsius(props.main.temp_max))}
+      {discrMain(props.weather[0].main, props.weather[0].discription)}
+      {location(props.coord.lon, props.coord.lat)}
     </div>
   );
 };
@@ -47,4 +47,4 @@ function Celsius(temp) {
   return cels;
 }
 
-export default Weather;
+export default WeatherCard;
