@@ -2,26 +2,6 @@ import React from 'react';
 import DeleteBtn from './DeleteBtn';
 import './Card.style.css';
 
-const WeatherCard = ({ cityInfo, cityDelete, thereEroror }) => {
-  return cityInfo.map((city, index) => {
-    return (
-      <div className="container" key={index}>
-        <DeleteBtn handleDelete={cityDelete} city={city} />
-        <div className="error">{thereEroror ? error() : null}</div>
-        <div className="card">
-          <h2>{city.name}</h2>
-          {city.main.temp ? (
-            <h2 className="temp">{celsius(city.main.temp)}&deg;</h2>
-          ) : null}
-          {minmaxTemp(celsius(city.main.temp_min), celsius(city.main.temp_max))}
-          {discrMain(city.weather[0].main, city.weather[0].description)}
-          {location(city.coord.lon, city.coord.lat)}
-        </div>
-      </div>
-    );
-  });
-};
-
 function minmaxTemp(min, max) {
   if (!!min && !!max) {
     return (
@@ -66,5 +46,27 @@ function error() {
     </div>
   );
 }
+
+const WeatherCard = ({ cityInfo, cityDelete, thereEroror }) => {
+  return cityInfo.map((city) => {
+    return (
+      <div className="container" key={city.id}>
+        <DeleteBtn handleDelete={cityDelete} city={city} />
+        <div className="error">{thereEroror ? error() : null}</div>
+        <div className="card">
+          <h2>{city.name}</h2>
+          {city.main.temp ? (
+            <h2 className="temp">{celsius(city.main.temp)}&deg;</h2>
+          ) : (
+            <p>temperature unavailable</p>
+          )}
+          {minmaxTemp(celsius(city.main.temp_min), celsius(city.main.temp_max))}
+          {discrMain(city.weather[0].main, city.weather[0].description)}
+          {location(city.coord.lon, city.coord.lat)}
+        </div>
+      </div>
+    );
+  });
+};
 
 export default WeatherCard;
